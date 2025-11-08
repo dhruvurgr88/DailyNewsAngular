@@ -1,0 +1,85 @@
+<div class="container mt-5">
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">Add Article</h4>
+    </div>
+
+    <div class="card-body">
+      <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+
+        <!-- Title -->
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input id="title"
+                 name="title"
+                 type="text"
+                 class="form-control"
+                 [(ngModel)]="model.title"
+                 #title="ngModel"
+                 required
+                 maxlength="200">
+          <div *ngIf="title.touched && title.invalid" class="text-danger mt-1">
+            <small *ngIf="title.errors?.['required']">Title is required.</small>
+            <small *ngIf="title.errors?.['maxlength']">Title is too long (max 200).</small>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="mb-3">
+          <label for="content" class="form-label">Content</label>
+          <textarea id="content"
+                    name="content"
+                    rows="6"
+                    class="form-control"
+                    [(ngModel)]="model.content"
+                    #content="ngModel"
+                    required></textarea>
+          <div *ngIf="content.touched && content.invalid" class="text-danger mt-1">
+            <small *ngIf="content.errors?.['required']">Content is required.</small>
+          </div>
+        </div>
+
+        <!-- Image URL -->
+        <div class="mb-3">
+          <label for="imageUrl" class="form-label">Image URL</label>
+          <input id="imageUrl"
+                 name="imageUrl"
+                 type="text"
+                 class="form-control"
+                 [(ngModel)]="model.imageUrl">
+        </div>
+
+        <!-- Premium Checkbox -->
+        <div class="form-check mb-3">
+          <input class="form-check-input"
+                 type="checkbox"
+                 id="isPremium"
+                 name="isPremium"
+                 [(ngModel)]="model.isPremium">
+          <label class="form-check-label" for="isPremium">
+            Premium article
+          </label>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit"
+                class="btn btn-success w-100"
+                [disabled]="f.invalid || submitting">
+          <span *ngIf="!submitting">Create</span>
+          <span *ngIf="submitting">
+            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            Submitting...
+          </span>
+        </button>
+      </form>
+
+      <!-- Messages -->
+      <div class="alert alert-success mt-3" *ngIf="successMessage">
+        {{ successMessage }}
+      </div>
+      <div class="alert alert-danger mt-3" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+    </div>
+  </div>
+</div>

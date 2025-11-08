@@ -1,0 +1,30 @@
+.add-article {
+  max-width: 700px;
+  margin: 16px auto;
+}
+
+  .add-article label {
+    display: block;
+    margin-top: 8px;
+  }
+
+  .add-article input[type="text"],
+  .add-article textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px;
+  }
+
+.error small {
+  color: #c00;
+}
+
+.message.success {
+  color: #080;
+  margin-top: 12px;
+}
+
+.message.error {
+  color: #c00;
+  margin-top: 12px;
+}

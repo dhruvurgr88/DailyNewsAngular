@@ -1,0 +1,76 @@
+<div class="container mt-4">
+  <h2>📰 Articles</h2>
+
+  <!-- Filter dropdown (Editor / Journalist) -->
+  <div *ngIf="isEditorOrJournalist" class="mb-3">
+    <label for="statusDropdown" class="me-2 fw-bold">Filter by status:</label>
+    <select id="statusDropdown"
+            [(ngModel)]="selectedStatus"
+            (change)="onStatusChange()"
+            class="form-select w-auto d-inline-block">
+      <option value="Pending">Pending</option>
+      <option value="Approved">Approved</option>
+    </select>
+  </div>
+
+  <!-- Loading & Error -->
+  <div *ngIf="loading" class="alert alert-info">Loading articles...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  <div *ngIf="message" class="alert alert-success">{{ message }}</div>
+
+  <!-- Article list -->
+  <div class="row" *ngIf="!loading">
+    <div *ngFor="let article of articles; trackBy: trackById" class="col-md-4 mb-3">
+      <div class="card shadow-sm h-100">
+
+        <!-- Image (optional) -->
+        <img *ngIf="article.imageUrl" [src]="article.imageUrl" class="card-img-top" style="height:180px; object-fit:cover;" />
+
+        <div class="card-body">
+          <h5 class="card-title">{{ article.title }}</h5>
+          <p class="card-text">{{ article.content | slice: 0:50 }}...</p>
+
+          <!-- Status Badge -->
+          <span class="badge"
+                [ngClass]="{
+                  'bg-secondary': article.status === 'Pending',
+                  'bg-success': article.status === 'Approved',
+                  'bg-danger': article.status === 'Rejected'
+                }">
+            {{ article.status }}
+          </span>
+
+          <!-- Author info -->
+          <small class="d-block mt-2"
+                 [ngClass]="{
+                   'text-success': article.authorEmail === userEmail,
+                   'text-muted': article.authorEmail !== userEmail
+                 }">
+            By: {{ article.authorEmail === userEmail ? 'You' : article.authorEmail }}
+          </small>
+        </div>
+
+        <!-- Footer Actions -->
+        <div class="card-footer d-flex justify-content-between align-items-center">
+          <button class="btn btn-primary btn-sm" [routerLink]="['/article', article.articleId]">Read More</button>
+
+          <!-- Editor actions -->
+          <ng-container *ngIf="userRole === 'Editor' && article.status === 'Pending'">
+            <button class="btn btn-success btn-sm me-1" (click)="approveArticle(article.articleId)">Approve</button>
+            <button class="btn btn-danger btn-sm" (click)="onReject(article.articleId)">Reject</button>
+          </ng-container>
+
+          <!-- Journalist actions -->
+          <ng-container *ngIf="userRole === 'Journalist' && article.authorEmail === userEmail && article.status !== 'Pending'">
+            <button class="btn btn-warning btn-sm" (click)="sendForReview(article.articleId)">Send for Review</button>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- No results -->
+  <div *ngIf="!loading && articles.length === 0" class="text-center text-muted mt-4">
+    No {{ selectedStatus.toLowerCase() }} articles found.
+  </div>
+</div>

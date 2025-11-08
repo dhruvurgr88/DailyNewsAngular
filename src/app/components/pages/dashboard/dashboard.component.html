@@ -1,0 +1,70 @@
+<div class="container mt-4">
+  <h2>📊 Editor Dashboard</h2>
+
+  <div *ngIf="loading" class="alert alert-info">Loading dashboard...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <div class="row text-center my-4">
+    <div class="col-md-3">
+      <div class="card shadow-sm p-3">
+        <h5>Total Articles</h5>
+        <h3>{{ totalArticles }}</h3>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card shadow-sm p-3 bg-success text-white">
+        <h5>Approved</h5>
+        <h3>{{ approvedCount }}</h3>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card shadow-sm p-3 bg-warning">
+        <h5>Pending</h5>
+        <h3>{{ pendingCount }}</h3>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card shadow-sm p-3 bg-danger text-white">
+        <h5>Rejected</h5>
+        <h3>{{ rejectedCount }}</h3>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-success" (click)="RedirectToArticles()"> See All Articles in Detail</button>
+
+  <h4 class="mt-4">🕒 Pending Articles for Approval</h4>
+  <table class="table table-striped mt-3" *ngIf="pendingArticles.length > 0; else noPending">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Created</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let article of pendingArticles">
+        <td>{{ article.title }}</td>
+        <td>{{ article.authorEmail }}</td>
+        <td>{{ article.createdDate  }}</td>
+        <td>
+          <button class="btn btn-success btn-sm me-2" (click)="approveArticle(article.articleId)">
+            Approve
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="rejectArticle(article.articleId)">
+            Reject
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+
+  <ng-template #noPending>
+    <div class="alert alert-info">No pending articles 🎉</div>
+  </ng-template>
+</div>
+
+
+

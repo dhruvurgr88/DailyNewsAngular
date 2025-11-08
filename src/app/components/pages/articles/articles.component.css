@@ -1,0 +1,19 @@
+.card-text {
+  height: 60px;              /* fixed height area for content */
+  overflow: hidden;          /* hide overflowed text */
+  text-overflow: ellipsis;   /* show "..." if text overflows */
+  display: -webkit-box;      
+  -webkit-line-clamp: 3;     /* limit to 3 lines */
+  -webkit-box-orient: vertical;
+}
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  height: 52px; /* 🟢 Fixed height area for titles */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* 🟢 Restrict to 2 lines */
+  -webkit-box-orient: vertical;
+  margin-bottom: 0.5rem;
+}

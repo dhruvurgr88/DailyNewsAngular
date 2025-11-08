@@ -1,0 +1,39 @@
+<div class="add-article">
+  <h2>Add Article</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="title">Title</label>
+      <input id="title" type="text" formControlName="title" />
+      <div class="error" *ngIf="f.title.touched && f.title.invalid">
+        <small *ngIf="f.title.errors?.required">Title is required.</small>
+        <small *ngIf="f.title.errors?.maxLength">Title is too long.</small>
+      </div>
+    </div>
+
+    <div>
+      <label for="content">Content</label>
+      <textarea id="content" rows="8" formControlName="content"></textarea>
+      <div class="error" *ngIf="f.content.touched && f.content.invalid">
+        <small *ngIf="f.content.errors?.required">Content is required.</small>
+      </div>
+    </div>
+
+    <div>
+      <label for="imageUrl">Image URL</label>
+      <input id="imageUrl" type="text" formControlName="imageUrl" />
+    </div>
+
+    <div>
+      <label>
+        <input type="checkbox" formControlName="isPremium" />
+        Premium article
+      </label>
+    </div>
+
+    <button type="submit" [disabled]="submitting">Create</button>
+  </form>
+
+  <div class="message success" *ngIf="successMessage">{{ successMessage }}</div>
+  <div class="message error" *ngIf="errorMessage">{{ errorMessage }}</div>
+</div>
