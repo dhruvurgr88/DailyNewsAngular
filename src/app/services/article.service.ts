@@ -20,7 +20,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ArticleService {
-
+  //private apiUrl = "https://localhost:7011/api/Article";
   private apiUrl = "https://dailynewsapp-i821.onrender.com/api/Article";
 
 

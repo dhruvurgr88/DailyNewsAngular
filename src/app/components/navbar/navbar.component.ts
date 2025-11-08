@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -6,13 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+
+  constructor(private router: Router) { }
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
 
   logout() {
     localStorage.removeItem('token');
-    window.location.href = '/login'; // refresh and redirect
+    localStorage.removeItem('role');
+    this.router.navigate(['/login']); // refresh and redirect
   }
 
 

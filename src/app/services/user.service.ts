@@ -9,6 +9,7 @@ export class UserService {
 
  
   private apiUrl = 'https://dailynewsapp-i821.onrender.com/api/User'; // ✅ your Web API base
+  //private apiUrl = 'https://localhost:7011/api/User'; // ✅ your Web API base
 
   constructor(private http: HttpClient) { }
 
