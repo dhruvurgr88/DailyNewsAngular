@@ -10,19 +10,17 @@ import { DashboardComponent } from './components/pages/dashboard/dashboard.compo
 import { AddArticleComponent } from './components/pages/articles/add-article/add-article.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: ArticlesComponent },
   { path: 'articles', component: ArticlesComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'article/:id', component: ArticleDetailComponent },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'addArticle', component: AddArticleComponent }
-
+  { path: 'addArticle', component: AddArticleComponent },
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
